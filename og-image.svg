@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Equipoise — EU Pay Transparency Directive Compliance</title>
+  <desc id="desc">Compliance workflow for the EU Pay Transparency Directive. Mercer found that only 9 percent of Europe-based employers have a full transparency strategy.</desc>
+  <defs>
+    <linearGradient id="surface" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f7f5ef" />
+      <stop offset="100%" stop-color="#ece7dd" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" rx="28" fill="url(#surface)" />
+  <circle cx="1060" cy="102" r="172" fill="#dfe6df" opacity="0.65" />
+  <circle cx="1110" cy="570" r="220" fill="#edf1eb" opacity="0.85" />
+  <rect x="74" y="68" width="68" height="68" rx="20" fill="#5e7467" />
+  <text x="108" y="113" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" fill="#f6f4ef">E</text>
+  <text x="74" y="194" font-family="Inter, Arial, sans-serif" font-size="76" font-weight="700" letter-spacing="-2.5" fill="#18201d">Equipoise</text>
+  <text x="74" y="258" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="500" fill="#4e5955">EU Pay Transparency Directive compliance workflow</text>
+  <text x="74" y="304" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="500" fill="#4e5955">for HR teams using Greenhouse and Workday</text>
+  <rect x="74" y="360" width="720" height="158" rx="24" fill="#f2eee6" stroke="#d9d3c7" />
+  <rect x="74" y="360" width="10" height="158" rx="5" fill="#5e7467" />
+  <text x="112" y="412" font-family="Inter, Arial, sans-serif" font-size="20" letter-spacing="1.8" fill="#6a746f">MERCER 2026 GLOBAL PAY TRANSPARENCY SURVEY</text>
+  <text x="112" y="466" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="600" letter-spacing="-1" fill="#18201d">Only 9% of Europe-based employers</text>
+  <text x="112" y="516" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="600" letter-spacing="-1" fill="#18201d">have a full transparency strategy.</text>
+</svg>

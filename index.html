@@ -5,36 +5,462 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Equipoise — EU Pay Transparency Directive Compliance</title>
   <meta name="description" content="Compliance workflow for the EU Pay Transparency Directive (2023/970). For HR teams using Greenhouse and Workday. Launching Q2 2026.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Equipoise — EU Pay Transparency Directive Compliance">
+  <meta property="og:description" content="Compliance workflow for the EU Pay Transparency Directive (2023/970). For HR teams using Greenhouse and Workday. Launching Q2 2026.">
+  <meta property="og:url" content="https://equipoise.morganlabs.org">
+  <meta property="og:image" content="https://equipoise.morganlabs.org/og-image.svg">
+  <meta property="og:image:type" content="image/svg+xml">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Equipoise — EU Pay Transparency Directive Compliance">
+  <meta name="twitter:description" content="Compliance workflow for the EU Pay Transparency Directive (2023/970). For HR teams using Greenhouse and Workday. Launching Q2 2026.">
+  <meta name="twitter:image" content="https://equipoise.morganlabs.org/og-image.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 640px; margin: 0 auto; padding: 4rem 1.5rem; line-height: 1.6; color: #1a1a1a; }
-    h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-    .tagline { color: #666; margin-bottom: 2.5rem; }
-    .stat { background: #f5f5f5; padding: 1rem 1.25rem; border-radius: 8px; margin: 1.5rem 0; }
-    a { color: #0066cc; }
-    footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #eee; color: #888; font-size: 0.9rem; }
+    :root {
+      color-scheme: light;
+      --bg: #f6f4ef;
+      --panel: rgba(255, 255, 255, 0.82);
+      --text: #18201d;
+      --muted: #57615d;
+      --line: rgba(24, 32, 29, 0.1);
+      --accent: #5e7467;
+      --accent-soft: rgba(94, 116, 103, 0.12);
+      --shadow: 0 24px 60px rgba(24, 32, 29, 0.08);
+      --radius: 20px;
+      --radius-sm: 12px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color-scheme: dark;
+        --bg: #101614;
+        --panel: rgba(19, 25, 23, 0.88);
+        --text: #eef3f0;
+        --muted: #a7b4ad;
+        --line: rgba(238, 243, 240, 0.1);
+        --accent: #8ba899;
+        --accent-soft: rgba(139, 168, 153, 0.12);
+        --shadow: 0 28px 72px rgba(0, 0, 0, 0.32);
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top right, rgba(94, 116, 103, 0.1), transparent 30rem),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent 18rem),
+        var(--bg);
+      color: var(--text);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+
+    .shell {
+      width: min(100%, 44rem);
+      margin: 0 auto;
+      padding: 1.25rem;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 1.25rem;
+    }
+
+    .masthead {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .mark {
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 0.95rem;
+      display: grid;
+      place-items: center;
+      background: var(--accent-soft);
+      border: 1px solid rgba(94, 116, 103, 0.18);
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      flex: 0 0 auto;
+    }
+
+    .brand {
+      display: grid;
+      gap: 0.18rem;
+    }
+
+    .brand strong {
+      font-size: 0.95rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 7vw, 3.4rem);
+      line-height: 1.04;
+      letter-spacing: -0.06em;
+    }
+
+    .tagline {
+      margin: 1rem 0 0;
+      max-width: 35rem;
+      font-size: 1.08rem;
+      color: var(--muted);
+    }
+
+    .hero,
+    .stat,
+    .details,
+    .capture {
+      margin-top: 1.25rem;
+    }
+
+    .hero {
+      padding: 1.5rem;
+      border-radius: calc(var(--radius) - 4px);
+      background: linear-gradient(180deg, rgba(94, 116, 103, 0.08), transparent 85%);
+      border: 1px solid var(--line);
+    }
+
+    .hero p,
+    .details p {
+      margin: 1rem 0 0;
+    }
+
+    .deadline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.2rem;
+      padding: 0.55rem 0.8rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+
+    .deadline::before {
+      content: "";
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 0.3rem rgba(94, 116, 103, 0.12);
+    }
+
+    .stat {
+      position: relative;
+      padding: 1.35rem 1.4rem 1.35rem 1.45rem;
+      border-radius: calc(var(--radius) - 4px);
+      background: rgba(94, 116, 103, 0.08);
+      border: 1px solid rgba(94, 116, 103, 0.14);
+    }
+
+    .stat::before {
+      content: "";
+      position: absolute;
+      inset: 1rem auto 1rem 0;
+      width: 3px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .stat-label {
+      margin: 0 0 0.5rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .stat p {
+      margin: 0;
+      font-size: clamp(1.08rem, 3vw, 1.34rem);
+      line-height: 1.45;
+      letter-spacing: -0.03em;
+    }
+
+    .details h2,
+    .capture h2 {
+      margin: 0 0 0.75rem;
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .details ul {
+      list-style: none;
+      margin: 1rem 0 0;
+      padding: 0;
+      display: grid;
+      gap: 0.72rem;
+    }
+
+    .details li {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      padding: 0.9rem 1rem;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.34);
+      border: 1px solid var(--line);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .details li {
+        background: rgba(255, 255, 255, 0.03);
+      }
+    }
+
+    .details li::before {
+      content: "";
+      width: 0.5rem;
+      height: 0.5rem;
+      margin-top: 0.45rem;
+      border-radius: 999px;
+      background: var(--accent);
+      flex: 0 0 auto;
+    }
+
+    .capture {
+      padding-top: 0.35rem;
+    }
+
+    .capture p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+    }
+
+    form {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .field-row {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    label {
+      font-size: 0.92rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    input[type="email"] {
+      width: 100%;
+      min-height: 3.2rem;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--text);
+      padding: 0 1rem;
+      font: inherit;
+      transition: border-color 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      input[type="email"] {
+        background: rgba(255, 255, 255, 0.04);
+      }
+    }
+
+    input[type="email"]:focus {
+      outline: none;
+      border-color: rgba(94, 116, 103, 0.5);
+      box-shadow: 0 0 0 4px rgba(94, 116, 103, 0.12);
+    }
+
+    button {
+      min-height: 3.2rem;
+      border: 0;
+      border-radius: 14px;
+      background: var(--accent);
+      color: #f8faf9;
+      font: inherit;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      transition: transform 120ms ease, opacity 120ms ease, filter 120ms ease;
+    }
+
+    button:hover { filter: brightness(1.04); }
+    button:active { transform: translateY(1px); }
+    button:disabled { opacity: 0.7; cursor: wait; }
+
+    .form-note {
+      margin: 0;
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    .status {
+      display: none;
+      padding: 0.8rem 0.9rem;
+      border-radius: 14px;
+      font-size: 0.93rem;
+      border: 1px solid transparent;
+    }
+
+    .status.is-visible { display: block; }
+    .status.success {
+      background: rgba(94, 116, 103, 0.12);
+      border-color: rgba(94, 116, 103, 0.18);
+    }
+    .status.error {
+      background: rgba(122, 66, 60, 0.12);
+      border-color: rgba(122, 66, 60, 0.18);
+    }
+
+    footer {
+      margin-top: 2.6rem;
+      padding-top: 1.1rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-color: rgba(94, 116, 103, 0.42);
+      text-underline-offset: 0.16em;
+    }
+
+    @media (min-width: 42rem) {
+      .shell { padding: 2rem 1.5rem 3rem; }
+      .card { padding: 2rem; }
+      .field-row {
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: end;
+      }
+      button {
+        min-width: 11.5rem;
+        padding: 0 1.25rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Equipoise</h1>
-  <p class="tagline">Compliance workflow for the EU Pay Transparency Directive (2023/970). For HR teams using Greenhouse and Workday.</p>
+  <main class="shell">
+    <section class="card">
+      <div class="masthead">
+        <div class="mark" aria-hidden="true">E</div>
+        <div class="brand">
+          <strong>Equipoise</strong>
+          <span>MorganLabs</span>
+        </div>
+      </div>
 
-  <p>The directive transposition deadline is <strong>June 7, 2026</strong>.</p>
+      <section class="hero">
+        <h1>Equipoise</h1>
+        <p class="tagline">Compliance workflow for the EU Pay Transparency Directive (2023/970). For HR teams using Greenhouse and Workday.</p>
+        <div class="deadline">Transposition deadline: June 7, 2026</div>
+      </section>
 
-  <div class="stat">
-    Mercer's 2026 Global Pay Transparency Survey found that only
-    <strong>9% of Europe-based employers</strong> have a full
-    transparency strategy.
-  </div>
+      <section class="stat" aria-label="Mercer statistic">
+        <p class="stat-label">Mercer 2026 Global Pay Transparency Survey</p>
+        <p>Only <strong>9% of Europe-based employers</strong> have a full transparency strategy.</p>
+      </section>
 
-  <p>Equipoise reads job postings and compensation data via your existing
-    ATS, lints requisitions for directive compliance, computes Article 9
-    gender pay gap reports, and tracks member-state transposition
-    deadlines across all 27 EU countries.</p>
+      <section class="details">
+        <p>Equipoise reads job postings and compensation data via your existing ATS, lints requisitions for directive compliance, computes Article 9 gender pay gap reports, and tracks member-state transposition deadlines across all 27 EU countries.</p>
+        <p><strong>Launching Q2 2026.</strong></p>
 
-  <p><strong>Launching Q2 2026.</strong></p>
+        <h2>What’s coming</h2>
+        <ul>
+          <li>Job posting compliance linter</li>
+          <li>Article 9 gender pay gap reporting</li>
+          <li>27-country transposition tracker</li>
+        </ul>
+      </section>
 
-  <p>Early access requests: <a href="mailto:hello@morganlabs.org">hello@morganlabs.org</a></p>
+      <section class="capture" aria-labelledby="notify-heading">
+        <h2 id="notify-heading">Early access</h2>
+        <p>Join the launch list for product updates and first access when onboarding opens.</p>
 
-  <footer>A <a href="https://morganlabs.org">MorganLabs</a> project.</footer>
+        <!-- Replace REPLACE_ME below with your real Formspree endpoint after signing up at https://formspree.io/. -->
+        <form id="notify-form" action="https://formspree.io/f/REPLACE_ME" method="POST" novalidate>
+          <div class="field-row">
+            <div>
+              <label for="email">Work email</label>
+              <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@company.com" required>
+            </div>
+            <button type="submit">Notify me at launch</button>
+          </div>
+          <p class="form-note">No spam. Just launch updates and early access.</p>
+          <p id="form-status" class="status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <footer>A <a href="https://morganlabs.org">MorganLabs</a> project.</footer>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("notify-form");
+    const status = document.getElementById("form-status");
+    const button = form.querySelector("button");
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      if (!form.reportValidity()) {
+        return;
+      }
+
+      status.className = "status";
+      status.textContent = "";
+      button.disabled = true;
+      button.textContent = "Submitting...";
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          headers: {
+            "Accept": "application/json"
+          },
+          body: new FormData(form)
+        });
+
+        if (response.ok) {
+          form.reset();
+          status.textContent = "Thanks. You’re on the list and we’ll reach out when launch access opens.";
+          status.className = "status success is-visible";
+        } else {
+          status.textContent = "Form endpoint not configured yet. Swap in your live Formspree endpoint and try again.";
+          status.className = "status error is-visible";
+        }
+      } catch (error) {
+        status.textContent = "Couldn’t submit right now. Check the Formspree endpoint and try again.";
+        status.className = "status error is-visible";
+      } finally {
+        button.disabled = false;
+        button.textContent = "Notify me at launch";
+      }
+    });
+  </script>
 </body>
 </html>
